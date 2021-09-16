@@ -3,19 +3,28 @@
  * proxy
  */ 
 
-/* var obj = { a: 1 },
-    handlers = {
-		get(target, key, context){
-			console.log('accessing: ', key);
-			return Reflect.get(
-				target, key, context
-			);
-		}
-	},
-	pobj = new Proxy( obj, handlers );
+var obj = { a: 1, b: 2 };
+var handlers = {
+    get(target, key, context){
+        console.log('get: ', target, key, context);
+        return target[key]
+    },
+
+    set(target, key, value){
+        console.log('set: ', target, key, value);
+        target[key] = value
+        return true;
+    }
+};
+var pobj = new Proxy( obj, handlers );
 
 console.log(obj.a);
-console.log(pobj.a); */
+console.log(pobj.a);
+
+pobj.c = 3;
+console.log(obj);
+console.log(pobj);
+
 
 /* var handlers = {
 	getOwnPropertyDescriptor(target, prop){
